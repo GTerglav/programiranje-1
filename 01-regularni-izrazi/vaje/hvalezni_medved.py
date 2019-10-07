@@ -28,10 +28,10 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 import re
 
 def find_words(txt, niz):
-    x = re.search("niz\b", txt)
-    return x
+    string = r"\w*" + niz + r"\w*\b"
+    return set(re.findall(string, txt))
 
-find_words(test_text, 'de')
+#print(find_words(test_text,'za'))
 
 ###############################################################################
 # 2) Sestavite funkcijo [find_prefix], ki vrne množico vseh besed, ki se
@@ -40,7 +40,11 @@ find_words(test_text, 'de')
 # >>> find_prefix(test_text, 'zi')
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
+def find_prefix(txt, niz):
+    string = r"\b" + niz + r"\w*"
+    return set(re.findall(string, txt))
 
+print(find_prefix(test_text,'zi'))
 
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
@@ -49,7 +53,11 @@ find_words(test_text, 'de')
 # >>> find_suffix(test_text, 'la')
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
+def find_prefix(txt, niz):
+    string = r"\w*" + niz + r"\b"
+    return set(re.findall(string, txt))
 
+print(find_prefix(test_text,'la'))
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
@@ -58,3 +66,9 @@ find_words(test_text, 'de')
 # >>> double_letters('A volunteer is worth twenty pressed men.')
 # {'volunteer', 'pressed'}
 ###############################################################################
+
+def double_letters(txt):
+    string = r"\w"
+    return set(re.findall(string, txt))
+
+print(double_letters('A volunteer is worth twenty pressed men.'))
