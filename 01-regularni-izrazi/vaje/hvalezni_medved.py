@@ -68,7 +68,7 @@ print(find_prefix(test_text,'la'))
 ###############################################################################
 
 def double_letters(txt):
-    string = r"\w"
-    return set(re.findall(string, txt))
+    string = r"\b(\w*(\w)\2\w*)\b"
+    return set(j[0] for j in re.findall(string, txt))
 
 print(double_letters('A volunteer is worth twenty pressed men.'))
