@@ -53,11 +53,11 @@ print(find_prefix(test_text,'zi'))
 # >>> find_suffix(test_text, 'la')
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
-def find_prefix(txt, niz):
+def find_suffix(txt, niz):
     string = r"\w*" + niz + r"\b"
     return set(re.findall(string, txt))
 
-print(find_prefix(test_text,'la'))
+print(find_suffix(test_text,'la'))
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
