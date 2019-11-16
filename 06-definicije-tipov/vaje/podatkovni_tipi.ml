@@ -240,5 +240,6 @@ let rec count_magic list =
  - : string option = Some "Jaina"
 [*----------------------------------------------------------------------------*)
 
-let rec find_candidate magic specialisation list = 
-  | [] ->
+let rec find_candidate magic specialisation list = (
+)
+
