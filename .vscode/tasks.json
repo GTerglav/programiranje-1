@@ -4,10 +4,7 @@
         {
             "label": "Python",
             "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "windows": {
                 "command": "python -i \\\"${file}\\\""
             },
