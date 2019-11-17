@@ -43,7 +43,7 @@ let repeat_tlrec x n =
 
 let rec range n = 
   let rec ran n acc =
-    if n < 0 then acc else ran (n-1) (n :: acc)
+    if n < 0 then acc else ran (n-1) (x :: acc)
   in 
   ran n []
 
