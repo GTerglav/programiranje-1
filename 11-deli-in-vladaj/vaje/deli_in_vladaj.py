@@ -27,6 +27,18 @@
 #     [10, 2, 0, 4, 11, 15, 17, 5, 18]
 ###############################################################################
 
+def pivot(a,start,end):
+    if end <= start:
+        return start
+    # mamo index, ki nam pove kje je prvi večji el od pivota, in ga ohranimo enakega skozi zanko
+    first_larger = start + 1
+    for i in range(start, end+1):
+        if a[i] < a[start]:
+            # ta element more bit na levi strani pivota
+            a[first_larger], a[i] = a[i], a[first_larger]
+            first_larger += 1
+    a[start], a[first_larger-1] = a[first_larger-1], a[start]
+    return first_larger - 1
 
 
 ###############################################################################
@@ -44,7 +56,15 @@
 # jo rešite brez da v celoti uredite tabelo [a].
 ###############################################################################
 
+def kth_element(a, k):
+    for i in range(len(a)-1):
+        if pivot(a, i, len(a)-1) == k:
+            p = a[i]
+    return p
 
+a = [10, 4, 5, 15, 11, 3, 17, 2, 18]
+
+kth_element(a, 3)
 
 ###############################################################################
 # Tabelo a želimo urediti z algoritmom hitrega urejanja (quicksort).
@@ -60,7 +80,20 @@
 #     [2, 3, 4, 5, 10, 11, 15, 17, 18]
 ###############################################################################
 
+def quicksort_part(a, start, end):
+    if start >= end:
+        return  
+    else:
+        k = pivot(a, start, end)
+        quicksort_part(a, start, k -1 )
+        quicksort_part(a, k + 1, end)
+    
+    
 
+def quicksort(a):
+    quicksort_part(a, 0, len(a)-1)
+    return a
+a = [10, 4, 5, 15, 11, 3, 17, 2, 18]
 
 ###############################################################################
 # Če imamo dve urejeni tabeli, potem urejeno združeno tabelo dobimo tako, da
@@ -85,7 +118,26 @@
 #
 ###############################################################################
 
+def zlij(target, begin, end, list_1, list_2):
+    for i in range(begin, end):
+        if list_1 == []:
+            target[i] = list_2[0]
+            list_2 = list_2[1:]
+        elif list_2 == []:
+            target[i] = list_1[0]
+            List_1 = list_1[1:]
+        else:
+            element = min(list_1[0], list_2[0])
+            if element == list_1[0]:
+                list_1 = list_1[1:]
+            else:
+                list_2 = list_2[1:]
+            target[i] = element
+    return target
 
+list_1 = [1,3,5,7,10]
+list_2 = [1,2,3,4,5,6,7]
+target = [-1 for _ in range(len(list_1) + len(list_2))]
 
 ###############################################################################
 # Tabelo želimo urediti z zlivanjem (merge sort). 
@@ -102,3 +154,18 @@
 # >>> mergesort(a)
 # [2, 3, 4, 5, 10, 11, 15, 17, 18]
 ###############################################################################
+
+def mergesort(a):
+    d = len(a)
+    if d <=1 :
+        return a
+    else:
+       prvi = a[:d // 2]
+       drugi = a[d // 2:]
+       prvi = mergesort(prvi)
+       drugi = mergesort(drugi)
+       zlij(a, 0, d, prvi, drugi)
+       return a
+
+
+a = [10, 4, 5, 15, 11, 3, 17, 2, 18]
