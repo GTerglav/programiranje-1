@@ -21,6 +21,31 @@ let test_matrix =
      [| 2 ; 4 ; 5 |];
      [| 7 ; 0 ; 1 |] |]
 
+let rec max_cheese cheese =
+  let height = Array.length cheese in
+  let width = Array.length cheese.(0) in
+  let memo = Array.make_matrix height width 0 in
+  let rec poracunaj_celico (vr:int) (st:int) =
+    if st = -1 then () else (
+    let desno = if st = width - 1 then 0 else memo.(vr).(st+1) in
+    let dol = if vr = height - 1 then 0 else memo.(vr+1).(st) in
+    memo.(vr).(st) <- (cheese.(vr).(st) + (max desno dol));
+    poracunaj_celico vr (st - 1)
+    )
+  in
+  let rec vrsticno (vr:int) = 
+    if vr = -1 then ()
+    else (
+      poracunaj_celico vr (width - 1);
+      vrsticno (vr - 1)
+    )
+  in
+  vrsticno (height - 1); 
+  memo.(0).(0)
+ 
+
+
+
 (*----------------------------------------------------------------------------*]
  Rešujemo problem sestavljanja alternirajoče obarvanih stolpov. Imamo štiri
  različne tipe gradnikov, dva modra in dva rdeča. Modri gradniki so višin 2 in
@@ -36,6 +61,25 @@ let test_matrix =
  # alternating_towers 10;;
  - : int = 35
 [*----------------------------------------------------------------------------*)
+
+let rec alternating_towers n =
+  let stevilo_rdecih = Array.make n+3 0 in
+  let stevilo_modrih = Array.make n+3 0 in
+  let rec modri l =
+    if l = 3 then stevilo_modrih.(l) <- 1
+    else
+      stevilo_modrih.(l) <- stevilo_rdecih.(l-2) + stevilo_rdecih.(l-3)
+  and rdeci l =
+    if l = 3 then stevilo_rdecih.(l) <- 1
+    else
+      stevilo_rdecih.(l) <- stevilo_modrih.(l-2) + stevilo_modrih.(l-1)
+  let rec poracunaj_celico n + 3 =
+    if if st = 2 then () else (
+    poracunaj_celico vr (st - 1)
+    )
+  in
+  stevilo_rdecih.(n) + stevilo_modrih.(n) 
+
 
 
 (*----------------------------------------------------------------------------*]
