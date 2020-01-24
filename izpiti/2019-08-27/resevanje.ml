@@ -5,7 +5,7 @@ let rec max_rezultat_do_n f n =
   else if (f n) > (max_rezultat_do_n f (n-1)) then f n
     else max_rezultat_do_n f (n-1)
 
-let fu x = (x - 1) * (x - 5)
+let fu x = x + 1
 
 let rec pocisti_seznam list =
   let rec aux list acc =
@@ -37,7 +37,7 @@ type 'a gnezdenje =
   | Element of 'a
   | Podseznam of 'a gnezdenje list
 
-let gnezdenje_primer = [Podseznam [Element 1; Element 2; Podseznam [Element 3; Podseznam [Element 4]; Podseznam []]; Podseznam[Element 5]]; Element 4]
+let gnezdenje_primer = [Element 1; Element 2; Podseznam [Element 1; Podseznam [Element 3; Podseznam [Element 4]; Podseznam []; Element 2]; Element 4]]
 
 let najvecja_globina_ene list =
   let rec aux list acc =
@@ -58,3 +58,45 @@ let najvecja_globina list =
   aux list 1
 
 
+let preslikaj list f =
+  let rec aux list f acc =
+    match list with
+    | [] -> List.rev acc
+    | Element x :: xs -> aux xs f ((Element (f x)) :: acc) 
+    | Podseznam ys :: xs -> aux xs f ((Podseznam (aux ys f [])) :: acc)
+  in
+  aux list f []
+
+let splosci' list = 
+  let rec aux list acc =
+    match list with
+    | [] -> acc
+    | Element x :: xs -> aux xs (x :: acc) 
+    | Podseznam ys :: xs -> aux xs (aux ys acc)
+  in
+  aux list []
+
+let splosci list = List.rev (splosci' list)
+
+let alternirajoci_konstruktorji list =
+  let rec aux list acc =
+    match list with
+    | [] -> true
+    | Element x :: xs -> 
+      if acc = 1 then aux xs 2 
+      else 
+        if acc = 0 then aux xs 2 
+        else false
+    | Podseznam ys :: xs -> 
+      if acc = 2 then aux xs 1
+      else 
+        if acc = 0 then aux xs 1  
+        else false
+  in
+  aux list 0
+
+let zlozi_preko_gnezdenja f n list = 
+  let rec aux f n list acc =
+    match list with
+    | [] -> acc
+    | Element x -> 
