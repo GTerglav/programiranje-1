@@ -25,3 +25,10 @@ let rec vstavi a = function
   | Filter (f,list,chain) -> if f a then Filter (f,list @ [a],chain)
     else Filter (f,list,vstavi a chain)
   | Ostalo xs -> Ostalo (xs @ [a])
+
+type 'a tree =
+  | Node of 'a tree * 'a * 'a tree
+  | Empty
+
+let rec monotona_pot drevo =
+  
