@@ -95,8 +95,14 @@ let alternirajoci_konstruktorji list =
   in
   aux list 0
 
-let zlozi_preko_gnezdenja f n list = 
-  let rec aux f n list acc =
-    match list with
-    | [] -> acc
-    | Element x -> 
+let join_list list1 list2 =
+  let rec aux list1 list2 acc =
+    match list2 with
+    | [] -> List.rev acc
+    | x :: xs -> aux list1 xs (x :: acc)
+  in
+  aux list1 list2 (List.rev list1)
+
+let lst = [1; 2; 3]
+let lest = [4; 5; 6]
+
